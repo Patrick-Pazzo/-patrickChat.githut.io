@@ -1,206 +1,352 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>
-    Patrick PaZzo E-Chatting CBGII
-  </title>
-  <link rel="icon" href="favicon.ico" type="favicon/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patrick PaZzo E-Chatting CBGII</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <style>
-    body {
-      font-family:Jokerman;
+    :root {
+      --primary-color: #4a6fa5;
+      --secondary-color: #166088;
+      --accent-color: #4e8098;
+      --light-color: #e6f2f5;
+      --dark-color: #333;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --border-radius: 8px;
+    }
+    
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f2f5;
+      color: var(--dark-color);
+      line-height: 1.6;
+    }
+    
     .container {
-      max-width: 600px;
-      margin: 20px auto;
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 0;
+    }
+    
+    .app-header {
+      background-color: var(--primary-color);
+      color: white;
       padding: 20px;
-      background-color: #f5f5f5;
-      border-radius: 5px;
-      box-shadow: 0 2px 5px #111,0 -2px 5px #111;
+      border-radius: var(--border-radius) var(--border-radius) 0 0;
+      text-align: center;
+      position: relative;
+    }
+    
+    .app-header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    
+    .app-content {
+      background-color: white;
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    
+    /* Auth Section */
+    .auth-section {
+      padding: 30px;
       text-align: center;
     }
-
-  div.user-login {
-  background-color: #f5f5f5;
-  border-radius: 5px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0px 2px 4px #222,0px -2px 4px #222;
-}
-
-div.user-login h3 {
-  margin-bottom: 10px;
-}
-
-div.user-login input[type="text"] {
-  width: 100%;
-  padding: 5px;
-  border: 2px solid #222;
-  border-radius: 8px;
-  height: 30px;
-  font-size: 15px;
-      color: black;
-      font-family: cursive;
-
-}
-
-div.user-login button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 3px;
-  background-color: black;
-  color: white;
-  cursor: pointer;
-  margin-top: 20px;
-}
-
-div.user-login button:hover {
-  background-color: #333;
-}
-
-   
-    .chat,
-    .input {
+    
+    .input-group {
+      margin-bottom: 20px;
+    }
+    
+    .input-group input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: var(--border-radius);
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+    
+    .input-group input:focus {
+      border-color: var(--primary-color);
+      outline: none;
+    }
+    
+    .btn {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+      margin: 0 5px;
+    }
+    
+    .btn:hover {
+      background-color: var(--secondary-color);
+    }
+    
+    .btn-secondary {
+      background-color: var(--accent-color);
+    }
+    
+    /* Chat Section */
+    .chat-section {
       display: none;
     }
-
-    .chat {
-      margin-top: 20px;
-      height: 400px;
-      background-color: #fff;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      overflow-y: scroll;
-      padding: 10px;
-      box-shadow: 0px 2px 5px #222;
+    
+    .chat-header {
+      background-color: var(--light-color);
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #ddd;
     }
-
-    .message {
-      margin-bottom: 10px;
-      padding: 10px;
-      border-radius: 20px;
-      font-family: sans-serif;
-      width: 80%;
-      margin-left: 10px;
-
-      
-
+    
+    .user-info {
+      display: flex;
+      align-items: center;
     }
-
-    .sender-message {
-      background-color: #222;
-      text-align: left;
-      color: white;
-      font-family: cursive;
-      
-    }
-
-    .receiver-message {
-      background-color: white;
-      color: black;
-      text-align: right;
-      margin-right: 20px;
-      box-shadow: 0px 1px 2px #222;
-      font-weight: 800;
-      font-weight: bold;
-
-    }
-
-    .input {
-      margin-top: 20px;
-    }
-
-    .input input[type="text"] {
-      width: 70%;
-      padding: 5px;
-      border-radius: 3px;
-      border: 2px solid #222;
-      height: 30px;
-      font-size: 15px;
-      color: black;
-      font-family: cursive;
-    }
-
-    .input button {
-      padding: 5px ;
-      border-radius: 3px;
-      background-color: black;
-      color: #fff;
-      border: none;
-      cursor: pointer;
+    
+    .user-avatar {
+      width: 40px;
       height: 40px;
-      width: 80px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      margin-right: 10px;
     }
-
-    .input button:hover {
-     opacity: 0.7;
+    
+    .recipient-select {
+      padding: 10px;
+      border-radius: var(--border-radius);
+      border: 1px solid #ddd;
+      font-size: 16px;
+      width: 200px;
+      background-color: white;
     }
-   .select {
-  width: 100%;
-  padding: 5px;
-  border-radius: 3px;
-  border: 2px solid #222;
-  height: 35px;
-  font-family: sans-serif;
-  color:white;
-  background-color: black;
-  font-size: 16px;
-  font-weight: 600;
-  font-weight: bold;
-  text-transform: uppercase;
-
-}
-
-.select option {
-  padding: 5px;
-  font-family: sans-serif;
-  color:white;
-  font-size: 16px;
-  font-weight: 600;
-  font-weight: bold;
-
-}
-
-
+    
+    .messages-container {
+      height: 400px;
+      overflow-y: auto;
+      padding: 15px;
+      background-color: #f9f9f9;
+    }
+    
+    .message-list {
+      list-style-type: none;
+    }
+    
+    .message {
+      margin-bottom: 15px;
+      padding: 12px 15px;
+      border-radius: 18px;
+      max-width: 70%;
+      position: relative;
+      word-wrap: break-word;
+    }
+    
+    .message-sender {
+      background-color: var(--primary-color);
+      color: white;
+      margin-left: auto;
+      border-bottom-right-radius: 5px;
+    }
+    
+    .message-receiver {
+      background-color: #e5e5ea;
+      color: var(--dark-color);
+      margin-right: auto;
+      border-bottom-left-radius: 5px;
+    }
+    
+    .message-time {
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.5);
+      margin-top: 5px;
+      text-align: right;
+    }
+    
+    .message-input-container {
+      display: flex;
+      padding: 15px;
+      border-top: 1px solid #ddd;
+    }
+    
+    .message-input {
+      flex-grow: 1;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      font-size: 16px;
+      margin-right: 10px;
+    }
+    
+    .message-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+    
+    .send-button {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s;
+    }
+    
+    .send-button:hover {
+      background-color: var(--secondary-color);
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 40px 0;
+      color: #999;
+    }
+    
+    .empty-state i {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        margin: 0;
+        max-width: 100%;
+        height: 100vh;
+      }
+      
+      .app-header {
+        border-radius: 0;
+      }
+      
+      .app-content {
+        border-radius: 0;
+        height: calc(100vh - 64px);
+      }
+      
+      .messages-container {
+        height: calc(100vh - 180px);
+      }
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    
+    /* Notifications */
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 20px;
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      z-index: 1000;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    
+    .notification.error {
+      background-color: #e74c3c;
+    }
+    
+    .notification.success {
+      background-color: #2ecc71;
+    }
   </style>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 </head>
 <body>
   <div class="container">
-  <h1>Patrick PaZzo E-Chatting CBGII</h1>
-
-  
-    <div class="user-login" id="user-login">
-  <h3>Login or Sign Up</h3>
-  <input type="text" id="username" placeholder="Enter your username" />
-  <button onclick="login()">Login</button>
-  <button onclick="signUp()">Sign Up</button>
-</div>
-
-    <div class="chat" id="chat">
-      <h3>Welcome <span id="username-display"></span>!</h3>
-      <select id="recipient" onchange="changeRecipient()" class="select">
-        <option value="">Select Your Friend </option>
-        <option value="pazzo">pazzo</option>
-        <option value="patrick">patrick</option>
-        <option value="guillen">guillen</option>
-        <option value="no one">no one </option>    
-      </select>
-      <ul class="message-list" id="message-list"></ul>
+    <div class="app-header">
+      <h1>Patrick PaZzo E-Chatting</h1>
     </div>
-
-    <div class="input" id="input">
-      <input type="text" id="message" placeholder="Enter your message" />
-      <button onclick="sendMessage()">Send</button>
+    
+    <div class="app-content">
+      <!-- Authentication Section -->
+      <div class="auth-section" id="auth-section">
+        <h2>Welcome to E-Chatting</h2>
+        <p>Sign in or create an account to start chatting</p>
+        
+        <div class="input-group">
+          <input type="text" id="username-input" placeholder="Enter your username" autocomplete="off">
+        </div>
+        
+        <div class="buttons">
+          <button class="btn" id="login-btn">Login</button>
+          <button class="btn btn-secondary" id="signup-btn">Sign Up</button>
+        </div>
+      </div>
+      
+      <!-- Chat Section -->
+      <div class="chat-section" id="chat-section">
+        <div class="chat-header">
+          <div class="user-info">
+            <div class="user-avatar" id="user-avatar"></div>
+            <span id="username-display">Username</span>
+          </div>
+          
+          <select class="recipient-select" id="recipient-select">
+            <option value="">Select a friend</option>
+          </select>
+        </div>
+        
+        <div class="messages-container" id="messages-container">
+          <div class="empty-state" id="empty-state">
+            <i class="fas fa-comments"></i>
+            <p>Select a friend to start chatting</p>
+          </div>
+          
+          <ul class="message-list" id="message-list"></ul>
+        </div>
+        
+        <div class="message-input-container">
+          <input type="text" class="message-input" id="message-input" placeholder="Type a message..." autocomplete="off">
+          <button class="send-button" id="send-button">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  
   <script>
-    // Replace with your Firebase configuration
+    // Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyC-IpHl_vRJa_purEREuRJNLWmUIK_y_H8",
       authDomain: "e-chatting-pazzo.firebaseapp.com",
@@ -214,153 +360,217 @@ div.user-login button:hover {
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-
-    var database = firebase.database();
-    var messageList = document.getElementById("message-list");
-    var currentUser = null;
-    var recipient = null;
-
-   function startChat() {
-  // Clear the select options
-  var recipientSelect = document.getElementById("recipient");
-  recipientSelect.innerHTML = '<option value="">Select Your Friend</option>';
-
-  database.ref("users").on("child_added", function (snapshot) {
-    var user = snapshot.val();
-    if (user.username !== currentUser.username) {
-      // Create a new option element for the select dropdown
-      var option = document.createElement("option");
-      option.value = user.username;
-      option.textContent = user.username;
-
-      // Add the option to the select dropdown
-      recipientSelect.appendChild(option).style.transiform="upercase";
-    }
-  });
-
-  
-
-
-
-      database.ref("messages").on("child_added", function (snapshot) {
-        var messageData = snapshot.val();
-        var sender = messageData.sender;
-        var recipient = messageData.recipient;
-        var message = messageData.message;
-
-        if (
-          (sender === currentUser.username && recipient === getCurrentRecipient()) ||
-          (sender === getCurrentRecipient() && recipient === currentUser.username)
-        ) {
-          var messageElement = document.createElement("li");
-          messageElement.classList.add("message");
-
-          if (sender === currentUser.username) {
-            messageElement.classList.add("sender-message");
+    const database = firebase.database();
+    
+    // DOM Elements
+    const authSection = document.getElementById('auth-section');
+    const chatSection = document.getElementById('chat-section');
+    const usernameInput = document.getElementById('username-input');
+    const loginBtn = document.getElementById('login-btn');
+    const signupBtn = document.getElementById('signup-btn');
+    const userAvatar = document.getElementById('user-avatar');
+    const usernameDisplay = document.getElementById('username-display');
+    const recipientSelect = document.getElementById('recipient-select');
+    const messagesContainer = document.getElementById('messages-container');
+    const messageList = document.getElementById('message-list');
+    const emptyState = document.getElementById('empty-state');
+    const messageInput = document.getElementById('message-input');
+    const sendButton = document.getElementById('send-button');
+    
+    // Application State
+    let currentUser = null;
+    let currentRecipient = null;
+    
+    // Event Listeners
+    loginBtn.addEventListener('click', handleLogin);
+    signupBtn.addEventListener('click', handleSignup);
+    recipientSelect.addEventListener('change', handleRecipientChange);
+    sendButton.addEventListener('click', handleSendMessage);
+    messageInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleSendMessage();
+    });
+    
+    // Functions
+    function handleLogin() {
+      const username = usernameInput.value.trim();
+      
+      if (!username) {
+        showNotification('Please enter a username', 'error');
+        return;
+      }
+      
+      database.ref('users').once('value')
+        .then(snapshot => {
+          if (snapshot.hasChild(username)) {
+            currentUser = {
+              username: username
+            };
+            
+            initializeChat();
           } else {
-            messageElement.classList.add("receiver-message");
+            showNotification('User not found. Please sign up or enter a valid username.', 'error');
           }
-
-          messageElement.innerText = message;
-          messageList.appendChild(messageElement);
-          messageList.scrollTop = messageList.scrollHeight;
+        });
+    }
+    
+    function handleSignup() {
+      const username = usernameInput.value.trim();
+      
+      if (!username) {
+        showNotification('Please enter a username', 'error');
+        return;
+      }
+      
+      database.ref('users').once('value')
+        .then(snapshot => {
+          if (snapshot.hasChild(username)) {
+            showNotification('Username already exists. Please choose a different username.', 'error');
+          } else {
+            currentUser = {
+              username: username,
+              createdAt: firebase.database.ServerValue.TIMESTAMP
+            };
+            
+            database.ref('users/' + username).set(currentUser);
+            initializeChat();
+          }
+        });
+    }
+    
+    function initializeChat() {
+      // Update UI
+      authSection.style.display = 'none';
+      chatSection.style.display = 'block';
+      chatSection.classList.add('fade-in');
+      
+      // Set user info
+      usernameDisplay.textContent = currentUser.username;
+      userAvatar.textContent = currentUser.username.charAt(0).toUpperCase();
+      
+      // Load users
+      loadUsers();
+      
+      // Load messages when recipient is selected
+      recipientSelect.addEventListener('change', loadMessages);
+      
+      showNotification('Welcome to E-Chatting!', 'success');
+    }
+    
+    function loadUsers() {
+      // Clear existing options
+      while (recipientSelect.options.length > 1) {
+        recipientSelect.remove(1);
+      }
+      
+      database.ref('users').on('child_added', snapshot => {
+        const user = snapshot.val();
+        
+        if (user.username !== currentUser.username) {
+          const option = document.createElement('option');
+          option.value = user.username;
+          option.textContent = user.username;
+          recipientSelect.appendChild(option);
         }
       });
     }
-
-    function getCurrentRecipient() {
-      return document.getElementById("recipient").value;
-    }
-
-    function changeRecipient() {
-      messageList.innerHTML = "";
-    }
-
-    function sendMessage() {
-      var messageInput = document.getElementById("message");
-      var message = messageInput.value.trim();
-      var recipient = getCurrentRecipient();
-
-      if (message !== "" && recipient !== "") {
-        var messageData = {
-          sender: currentUser.username,
-          recipient: recipient,
-          message: message
-        };
-
-        database.ref("messages").push().set(messageData);
-
-        messageInput.value = "";
-      }
-    }
-
-   function signUp() {
-  var usernameInput = document.getElementById("username");
-  var username = usernameInput.value.trim();
-
-  if (username !== "") {
-    // Check if the user already exists
-    var usersRef = database.ref("users");
-    usersRef.once("value", function(snapshot) {
-      if (!snapshot.hasChild(username)) {
-        // Create a new user
-        currentUser = {
-          id: Date.now().toString(),
-          username: username
-        };
-
-        usersRef.child(username).set(currentUser);
-
-        // Update the select option in the current tab
-        var recipientSelect = document.getElementById("recipient");
-        var newOption = document.createElement("option");
-        newOption.value = username;
-        newOption.textContent = username;
-        recipientSelect.appendChild(newOption);
-
-        document.getElementById("username-display").innerText = currentUser.username;
-        document.getElementById("user-login").style.display = "none";
-        document.getElementById("chat").style.display = "block";
-        document.getElementById("input").style.display = "block";
-
-        startChat();
+    
+    function handleRecipientChange() {
+      currentRecipient = recipientSelect.value;
+      
+      if (currentRecipient) {
+        emptyState.style.display = 'none';
+        messageList.style.display = 'block';
+        loadMessages();
       } else {
-        alert("Username already exists. Please choose a different username.");
+        emptyState.style.display = 'block';
+        messageList.style.display = 'none';
+        messageList.innerHTML = '';
       }
-    });
-  }
-}
-
-
-function login() {
-  var usernameInput = document.getElementById("username");
-  var username = usernameInput.value.trim();
-
-  if (username !== "") {
-    // Check if the user exists
-    var usersRef = database.ref("users");
-    usersRef.once("value", function(snapshot) {
-      if (snapshot.hasChild(username)) {
-        // Login as existing user
-        currentUser = {
-          id: Date.now().toString(),
-          username: username
-        };
-
-        document.getElementById("username-display").innerText = currentUser.username;
-        document.getElementById("user-login").style.display = "none";
-        document.getElementById("chat").style.display = "block";
-        document.getElementById("input").style.display = "block";
-
-        startChat();
+    }
+    
+    function loadMessages() {
+      // Clear existing messages
+      messageList.innerHTML = '';
+      
+      if (!currentRecipient) return;
+      
+      database.ref('messages').off();
+      database.ref('messages').on('child_added', snapshot => {
+        const message = snapshot.val();
+        
+        if ((message.sender === currentUser.username && message.recipient === currentRecipient) ||
+            (message.sender === currentRecipient && message.recipient === currentUser.username)) {
+          displayMessage(message);
+        }
+      });
+    }
+    
+    function displayMessage(message) {
+      const messageElement = document.createElement('li');
+      messageElement.classList.add('message');
+      
+      if (message.sender === currentUser.username) {
+        messageElement.classList.add('message-sender');
       } else {
-        alert("User not found. Please sign up or enter a valid username.");
+        messageElement.classList.add('message-receiver');
       }
-    });
-  }
-}
-
-
+      
+      // Message content
+      const contentElement = document.createElement('div');
+      contentElement.textContent = message.text;
+      messageElement.appendChild(contentElement);
+      
+      // Message timestamp
+      if (message.timestamp) {
+        const timeElement = document.createElement('div');
+        timeElement.classList.add('message-time');
+        
+        const date = new Date(message.timestamp);
+        timeElement.textContent = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        
+        messageElement.appendChild(timeElement);
+      }
+      
+      messageList.appendChild(messageElement);
+      
+      // Scroll to the latest message
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+    
+    function handleSendMessage() {
+      const text = messageInput.value.trim();
+      
+      if (!text || !currentRecipient) return;
+      
+      const message = {
+        sender: currentUser.username,
+        recipient: currentRecipient,
+        text: text,
+        timestamp: firebase.database.ServerValue.TIMESTAMP
+      };
+      
+      database.ref('messages').push().set(message);
+      
+      messageInput.value = '';
+      messageInput.focus();
+    }
+    
+    function showNotification(message, type = 'info') {
+      const notification = document.createElement('div');
+      notification.classList.add('notification');
+      
+      if (type) {
+        notification.classList.add(type);
+      }
+      
+      notification.textContent = message;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+    }
   </script>
 </body>
 </html>
